@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lan="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Another Form</title>
+</head>
+<body>
+
+<header>
+    {{if .Method}}<h3>The request method: {{.Method}}</h3>{{end}}
+    {{if .ContentLength}}<h3>Content length is: {{.ContentLength}}</h3>{{end}}
+    {{if .URL}}
+        <h3>The request URL:</h3>
+        <ul>
+            <li>Scheme: {{.URL.Scheme}}</li>
+            <li>Opaque: {{.URL.Opaque}}</li>
+            <li>Host: {{.URL.Host}}</li>
+            <li>Path: {{.URL.Path}}</li>
+            <li>RawPath: {{.URL.RawPath}}</li>
+            <li>ForceQuery: {{.URL.ForceQuery}}</li>
+            <li>RawQuery: {{.URL.RawQuery}}</li>
+            <li>Fragment: {{.URL.Fragment}}</li>
+        </ul>
+    {{end}}
+
+    {{if .Header}}
+        <h3>The Header:</h3>
+        {{range $key, $value := .Header}}
+            <p>{{$key}}</p>
+            <ul>
+                {{range $value}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        {{end}}
+    {{end}}
+
+    {{if .Submissions}}
+        <p>
+            <strong>Variable Names</strong> (identifiers) and <em>Values</em>
+        </p>
+
+        {{range $key, $value := .Submissions}}
+            <p>
+                <strong>{{$key}}</strong>
+            </p>
+
+            <ul>
+                {{range $value}}
+                    <li>
+                        <em>{{.}}</em>
+                    </li>
+                {{end}}
+            </ul>
+        {{end}}
+    {{end}}
+</header>
+
+
+<form action="/" method="POST">
+    <input type="text" name="first-name" placeholder="First Name">
+    <input type="submit" name="submit-btn" value="Submit">
+</form>
+
+</body>
+</html>
