@@ -19,6 +19,10 @@ func w (res http.ResponseWriter, req *http.Request) {
 	io.WriteString(res, "world!!!!")
 }
 
+func p (res http.ResponseWriter, req *http.Request) {
+	io.WriteString(res, "human~!!!!!")
+}
+
 func main() {
 	// The Handle below requires a 'type Handler'. 'd' is a type Handler (and a type int).
 	var d hotdog
@@ -28,8 +32,16 @@ func main() {
 	http.HandleFunc("/hello", h)
 	http.HandleFunc("/world", w)
 
-	// Handle vs HandleFunc ==> HandleFunc does NOT require the Handler type! It requires a handler function in a certain format.
+	// Handle vs HandleFunc
+		// Handle: Takes a value of 'type Handler'
+		// HandleFunc: Takes a func with the following signature ==> func(ResponseWriter, *Request)
+
 	// http package Handle and HandleFunc are attached to the DefaultServeMux.
+
+	// HandlerFunc vs HandleFunc
+		// HandlerFunc is different from HandleFunc! Double check docs. We can do the below:
+	http.Handle("/person", http.HandlerFunc(p))
+
 
 	// When the nil is passed in as the handler, you should know immediately that this is using the DefaultServeMux.
 	// If not nil, then somebody created their own a 'Multiplexer(Mux)'.
