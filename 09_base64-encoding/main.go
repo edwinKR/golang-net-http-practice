@@ -17,4 +17,5 @@ func main() {
 		log.Fatalln(err)
 	}
 	fmt.Println("Decoded byte slice>>>>>>>", bs)
+	fmt.Println("Decoded string version >>>>>>> ", string(bs))
 }
